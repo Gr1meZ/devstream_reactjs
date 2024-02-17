@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React, {useEffect, useState} from "react";
+import baseApi from "./state";
+import ImageCollection from "./imageCollection/ImageCollectionComponent";
+import TermsOfUse from "./terms/termsOfUseComponent";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [data, setData] = useState(null);
+    const [accepted, setAccepted] = useState(false);
+
+    const handleAccept = () => {
+        setAccepted(true);
+    };
+
+    useEffect(() => {
+
+        fetch(`${baseApi}/static/test.json`)
+            .then(response => response.json())
+            .then(data => {
+                setData(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, []);
+
+    console.log(data);
+    return (
+        <div className="App">
+            {data && !accepted && <TermsOfUse  terms={data.terms_of_use} handleAccept={handleAccept} accepted={accepted}/>}
+            {data && accepted && <ImageCollection images={data.images}/>}
+        </div>
+    );
 }
 
 export default App;
