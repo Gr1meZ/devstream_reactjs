@@ -1,6 +1,4 @@
-
-
-const ResizeImage = (img) => {
+export  const ResizeImage = (img) => {
     const MAX_WIDTH = 300;
     const MAX_HEIGHT = 300;
 
@@ -18,4 +16,3 @@ const ResizeImage = (img) => {
     return {weight, height}
 }
 
-export default ResizeImage;

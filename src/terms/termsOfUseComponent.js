@@ -1,12 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ModalComponent from "./modal/modalComponent";
 
-const TermsOfUse = ({terms, accepted, handleAccept}) => {
+const TermsOfUse = () => {
 
-
-    return (terms && !accepted && <ModalComponent onAccept={handleAccept} terms={terms}/>)
+    return (<ModalComponent/>)
 }
-
 
 export default TermsOfUse;

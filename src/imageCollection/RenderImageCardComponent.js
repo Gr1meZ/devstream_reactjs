@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import resizeImage from "./functions/resizeImage";
+import {ResizeImage} from "./functions/resizeImage";
 
 const RenderImageCardComponent = ({ imageUrl }) => {
     const [image, setImage] = useState(null);
@@ -15,7 +15,7 @@ const RenderImageCardComponent = ({ imageUrl }) => {
         img.onload = () => {
             setImage(img);
 
-            const properties = resizeImage(img);
+            const properties = ResizeImage(img);
             setWidth(properties.weight);
             setHeight(properties.height);
         };

@@ -1,9 +1,9 @@
 import RenderModal from "./renderModal";
 
-const ModalComponent =({onAccept, terms}) => {
+const ModalComponent = () => {
 
     return (
-        <RenderModal terms={terms} onAccept={onAccept}/>
+        <RenderModal/>
     )
 }
 

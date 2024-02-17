@@ -1,8 +1,10 @@
 import React from "react";
 import RenderImageCardComponent from "./RenderImageCardComponent";
-import baseApi from "../state";
+import baseApi from "../baseApi";
+import {useSelector} from "react-redux";
+const ImageCardsComponent = () => {
+    const images = useSelector(state => state.stateData.images);
 
-const ImageCardsComponent = ({ images }) => {
     return (
         <div className="row align-self-center w-100">
             {images.map((image) => (

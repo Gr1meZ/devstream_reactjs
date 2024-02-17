@@ -1,34 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {useEffect, useState} from "react";
-import baseApi from "./state";
-import ImageCollection from "./imageCollection/ImageCollectionComponent";
+import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getApiData} from "./getApiData";
 import TermsOfUse from "./terms/termsOfUseComponent";
+import ImageCollection from "./imageCollection/ImageCollectionComponent";
 
 const App = () => {
-    const [data, setData] = useState(null);
-    const [accepted, setAccepted] = useState(false);
+    const dispatch = useDispatch();
 
-    const handleAccept = () => {
-        setAccepted(true);
-    };
+    getApiData(dispatch);
 
-    useEffect(() => {
-
-        fetch(`${baseApi}/static/test.json`)
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }, []);
-
-    console.log(data);
+    const isAccepted = useSelector(state => state.stateData.accepted);
     return (
         <div className="App">
-            {data && !accepted && <TermsOfUse  terms={data.terms_of_use} handleAccept={handleAccept} accepted={accepted}/>}
-            {data && accepted && <ImageCollection images={data.images}/>}
+            {!isAccepted && <TermsOfUse/>}
+            {isAccepted && <ImageCollection/>}
         </div>
     );
 }
