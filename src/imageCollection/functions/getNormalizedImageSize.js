@@ -1,4 +1,4 @@
-export  const ResizeImage = (img) => {
+export  const getNormalizedImageSize = (img) => {
     const MAX_WIDTH = 300;
     const MAX_HEIGHT = 300;
 

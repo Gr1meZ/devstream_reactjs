@@ -1,25 +1,24 @@
 import baseApi from "./baseApi";
-import {setImages, setTerms} from "./redux/slices/dataSlice";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
-
-export const getApiData = async (dispatch) => {
-
+export const getApiData = async () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [data, setData] = useState(null);
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        const fetchData = async () => {
-             await fetch(`${baseApi}/static/test.json`)
-                .then(result => result.json())
-                .then(data => {
+        const getData = async () => {
+
+            await axios.get(`${baseApi}/static/test.json`)
+                .then(result => {
+
+                    const data = result.data;
                     data.terms_of_use.paragraphs.sort((a, b) => a.index - b.index);
-                    dispatch(setTerms(data.terms_of_use));
-                    dispatch(setImages(data.images));
+                    setData(data);
                 })
                 .catch(error => console.log(error));
         }
-        fetchData();
-    }, [dispatch])
+        getData();
+    }, [])
+    return data;
 }
-
-
-

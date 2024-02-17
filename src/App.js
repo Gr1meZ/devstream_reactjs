@@ -4,11 +4,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {getApiData} from "./getApiData";
 import TermsOfUse from "./terms/termsOfUseComponent";
 import ImageCollection from "./imageCollection/ImageCollectionComponent";
+import {dispatchApiData} from "./dispatchApiData";
 
 const App = () => {
     const dispatch = useDispatch();
+    const apiData = async () => {
+    const data = await getApiData();
 
-    getApiData(dispatch);
+    if(data)
+        dispatchApiData(data, dispatch);
+    }
+
+    apiData();
 
     const isAccepted = useSelector(state => state.stateData.accepted);
     return (

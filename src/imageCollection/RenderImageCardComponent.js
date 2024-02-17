@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ResizeImage} from "./functions/resizeImage";
+import {getNormalizedImageSize} from "./functions/getNormalizedImageSize";
 
 const RenderImageCardComponent = ({ imageUrl }) => {
     const [image, setImage] = useState(null);
@@ -15,7 +15,7 @@ const RenderImageCardComponent = ({ imageUrl }) => {
         img.onload = () => {
             setImage(img);
 
-            const properties = ResizeImage(img);
+            const properties = getNormalizedImageSize(img);
             setWidth(properties.weight);
             setHeight(properties.height);
         };
@@ -26,7 +26,6 @@ const RenderImageCardComponent = ({ imageUrl }) => {
     }, [imageUrl]);
 
     useEffect(() => {
-
         fetch(imageUrl)
             .then((response) => response.blob())
             .then((myBlob) => {
